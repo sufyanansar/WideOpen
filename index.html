@@ -358,9 +358,9 @@ const seedProjects=[
   {
     id:'p1',
     name:'nintex-docgen-tagger',
-    repo:'https://github.com/sufyanansar/nintex-docgen-tagger',
+    repo:'https://github.com/sufyanansar/WideOpen/blob/master/nintex-docgen-tagger/manifest.xml',
     desc:'Microsoft Word add-in that browses Nintex DocGen packages in Salesforce and inserts merge-field tags at the cursor, wrapped in content controls.',
-    install:'In Word: Insert → Add-ins → More Add-ins → Upload My Add-in\nPaste this manifest URL:\n  https://sufyanansar.github.io/nintex-docgen-tagger/manifest.xml\n\nConnect to Salesforce (no Connected App needed):\n1. Developer Console → Debug → Open Execute Anonymous Window\n2. Run: System.debug(UserInfo.getSessionId());\n3. Copy the session ID, paste it into your org URL after ?sid=\n4. Paste that full URL into the add-in\'s \"Connect\" field\n\nSessions expire after a few hours — reconnect with a fresh URL when that happens.',
+    install:'Download the raw manifest file from the URL, upload it to Microsoft Word Online via Add-ins > Advanced Options, and then retrieve the Session ID from the org user application.',
     tags:['office-add-in','salesforce','word','nintex-docgen'],
     language:'JavaScript',
     stars:0,
