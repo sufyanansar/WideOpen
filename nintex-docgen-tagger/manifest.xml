@@ -20,9 +20,9 @@
   <AppDomains>
     <AppDomain>https://login.salesforce.com</AppDomain>
     <AppDomain>https://test.salesforce.com</AppDomain>
-    <AppDomain>https://beeahgroup--beeahparti.sandbox.my.salesforce.com</AppDomain>
-    <AppDomain>https://beeahgroup--beeahparti.sandbox.lightning.force.com</AppDomain>
-    <AppDomain>https://beeahgroup--beeahparti.sandbox.my.salesforce-setup.com</AppDomain>
+    <AppDomain>https://*.my.salesforce.com</AppDomain>
+    <AppDomain>https://*.sandbox.lightning.force.com</AppDomain>
+    <AppDomain>https://*.sandbox.my.salesforce-setup.com</AppDomain>
     <AppDomain>https://sufyanansar.github.io/nintex-docgen-tagger</AppDomain>
   </AppDomains>
   
