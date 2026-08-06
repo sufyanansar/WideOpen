@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OfficeApp 
+  xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" 
+  xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" 
+  xsi:type="TaskPaneApp">
+  
+  <Id>b78f4a1c-92e1-4c3a-8671-5582a9341b12</Id>
+  <Version>1.0.0.0</Version>
+  <ProviderName>Nintex DocGen</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="Nintex DocGen Field Tagger" />
+  <Description DefaultValue="Connect to Salesforce, browse Nintex DocGen packages, and insert field tags into Word documents." />
+  
+  <IconUrl DefaultValue="https://sufyanansar.github.io/nintex-docgen-tagger/assets/icon-32.png" />
+  <HighResolutionIconUrl DefaultValue="https://sufyanansar.github.io/nintex-docgen-tagger/assets/icon-80.png" />
+  <SupportUrl DefaultValue="https://sufyanansar.github.io/nintex-docgen-tagger" />
+  
+  <AppDomains>
+    <AppDomain>https://login.salesforce.com</AppDomain>
+    <AppDomain>https://test.salesforce.com</AppDomain>
+    <AppDomain>https://beeahgroup--beeahparti.sandbox.my.salesforce.com</AppDomain>
+    <AppDomain>https://beeahgroup--beeahparti.sandbox.lightning.force.com</AppDomain>
+    <AppDomain>https://beeahgroup--beeahparti.sandbox.my.salesforce-setup.com</AppDomain>
+    <AppDomain>https://sufyanansar.github.io/nintex-docgen-tagger</AppDomain>
+  </AppDomains>
+  
+  <Hosts>
+    <Host Name="Document" />
+  </Hosts>
+  
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="WordApi" MinVersion="1.1" />
+    </Sets>
+  </Requirements>
+  
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://sufyanansar.github.io/nintex-docgen-tagger/index.html" />
+  </DefaultSettings>
+  
+  <Permissions>ReadWriteDocument</Permissions>
+  
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Document">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="GetStarted.Title" />
+            <Description resid="GetStarted.Description" />
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl" />
+          </GetStarted>
+          <FunctionFile resid="Commands.Url" />
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <CustomTab id="NintexTab">
+              <Group id="NintexGroup">
+                <Label resid="GroupLabel" />
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16x16" />
+                  <bt:Image size="32" resid="Icon.32x32" />
+                  <bt:Image size="80" resid="Icon.80x80" />
+                </Icon>
+                <Control xsi:type="Button" id="TaskpaneButton">
+                  <Label resid="TaskpaneButton.Label" />
+                  <Supertip>
+                    <Title resid="TaskpaneButton.Label" />
+                    <Description resid="TaskpaneButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16x16" />
+                    <bt:Image size="32" resid="Icon.32x32" />
+                    <bt:Image size="80" resid="Icon.80x80" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>ButtonId1</TaskpaneId>
+                    <SourceLocation resid="Taskpane.Url" />
+                  </Action>
+                </Control>
+              </Group>
+              <Label resid="TabLabel" />
+            </CustomTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16x16" DefaultValue="https://sufyanansar.github.io/nintex-docgen-tagger/assets/icon-16.png" />
+        <bt:Image id="Icon.32x32" DefaultValue="https://sufyanansar.github.io/nintex-docgen-tagger/assets/icon-32.png" />
+        <bt:Image id="Icon.80x80" DefaultValue="https://sufyanansar.github.io/nintex-docgen-tagger/assets/icon-80.png" />
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="Commands.Url" DefaultValue="https://sufyanansar.github.io/nintex-docgen-tagger/index.html" />
+        <bt:Url id="Taskpane.Url" DefaultValue="https://sufyanansar.github.io/nintex-docgen-tagger/index.html" />
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://sufyanansar.github.io/nintex-docgen-tagger" />
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="GetStarted.Title" DefaultValue="Nintex DocGen Tagger" />
+        <bt:String id="GroupLabel" DefaultValue="Nintex DocGen" />
+        <bt:String id="TabLabel" DefaultValue="Nintex DocGen" />
+        <bt:String id="TaskpaneButton.Label" DefaultValue="Field Tagger" />
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="GetStarted.Description" DefaultValue="Open the Nintex DocGen Field Tagger pane to insert Salesforce tags." />
+        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Opens the Nintex DocGen Field Tagger pane." />
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>

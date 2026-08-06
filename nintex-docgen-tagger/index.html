@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nintex DocGen Field Tagger</title>
+  <!-- Office.js CDN -->
+  <script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+  <script type="module" crossorigin src="/nintex-docgen-tagger/assets/main-A2U-agfM.js"></script>
+  <link rel="stylesheet" crossorigin href="/nintex-docgen-tagger/assets/main-CN1LEvOo.css">
+</head>
+<body>
+  <div id="app-container">
+    <!-- TaskPane Section -->
+    <div class="taskpane">
+      <!-- App Header -->
+      <div class="app-header">
+        <div class="brand">
+          <div class="brand-icon">N</div>
+          <div>
+            <div class="brand-title">Nintex DocGen</div>
+          </div>
+        </div>
+        <div id="active-org-badge" class="org-badge badge-sandbox">Sandbox</div>
+      </div>
+
+      <!-- Main Screens -->
+      <div class="screen-container">
+        
+        <!-- Screen 1: Orgs Manager -->
+        <div id="screen-orgs" class="screen active">
+          <div class="section-title">
+            <span>Connected Orgs</span>
+          </div>
+
+          <div id="orgs-list" class="card-list">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <div style="margin-top: 10px;" class="section-title">Connect to Salesforce</div>
+
+          <div class="form-group" style="margin-bottom: 8px;">
+            <label class="form-label">Salesforce Session URL</label>
+            <input id="input-session-url" type="password" class="input-field"
+                   placeholder="https://your-org.my.salesforce.com/secur/frontdoor.jsp?sid=...">
+          </div>
+
+          <button id="btn-connect-session" class="btn btn-primary" style="width: 100%;">
+            <span>Connect</span>
+          </button>
+
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px; line-height: 1.6;">
+            <strong>How to get this URL:</strong><br>
+            In Salesforce, open <strong>Developer Console &rarr; Debug &rarr; Open Execute Anonymous Window</strong>,
+            run <code>System.debug(UserInfo.getSessionId());</code>, copy the session ID from the log, and paste it
+            after <code>?sid=</code> in your org's URL &mdash; e.g.
+            <code>https://yourorg.my.salesforce.com/secur/frontdoor.jsp?sid=00D...</code><br><br>
+            Sessions expire after a few hours and cannot be renewed automatically &mdash; paste a fresh URL when that happens.
+          </div>
+
+          <div style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">
+            Note: Switching orgs will reload your package list.
+          </div>
+        </div>
+
+        <!-- Screen 2: Packages -->
+        <div id="screen-packages" class="screen">
+          <div class="section-title">
+            <span>DocGen Packages</span>
+            <button id="btn-nav-orgs" class="btn btn-secondary btn-sm">Manage Orgs</button>
+          </div>
+
+          <div class="form-group">
+            <input id="input-search-packages" type="text" class="input-field" placeholder="Search packages...">
+          </div>
+
+          <div id="packages-list" class="card-list">
+            <!-- Rendered dynamically -->
+          </div>
+
+          <div style="margin-top: 12px; border-top: 1px dashed var(--border-color); padding-top: 12px;">
+            <button id="btn-use-paste-tagger" class="btn btn-secondary" style="width: 100%;">
+              <span>Use Offline Paste-in Tagger</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Screen 3: Field Tagger -->
+        <div id="screen-tagger" class="screen">
+          <div class="section-title" style="margin-bottom: 0;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button id="btn-back-packages" class="btn btn-secondary btn-sm">← Back</button>
+              <span id="package-title-display" style="font-size: 13px; color: var(--text-primary);">Package Name</span>
+            </div>
+          </div>
+
+          <!-- Filters -->
+          <div style="display: flex; gap: 8px;">
+            <input id="input-search-fields" type="text" class="input-field" placeholder="Search fields by label or tag...">
+            <button id="btn-toggle-paste-drawer" class="btn btn-secondary btn-sm" title="Paste Custom Tags">Paste</button>
+          </div>
+
+          <!-- Paste Drawer -->
+          <div id="paste-drawer" class="form-group" style="display: none; background: var(--bg-card); padding: 10px; border-radius: var(--radius-sm); border: 1px solid var(--border-color);">
+            <label class="form-label">Paste Tags (one per line or &lt;&lt;Tag&gt;&gt; format):</label>
+            <textarea id="textarea-paste-tags" class="input-field" rows="4" placeholder="<<Opportunity_Amount>>&#10;Account_Name&#10;Contact_Email"></textarea>
+            <div style="display: flex; gap: 6px; margin-top: 6px;">
+              <button id="btn-save-paste-tags" class="btn btn-primary btn-sm">Add Tags</button>
+              <button id="btn-clear-paste-tags" class="btn btn-secondary btn-sm">Clear</button>
+            </div>
+          </div>
+
+          <!-- Aggregate error banner -->
+          <div id="tree-error-banner" class="warning-banner" style="display: none;"></div>
+
+          <!-- Search progress -->
+          <div id="tree-progress" style="display: none; font-size: 12px; color: var(--text-secondary); padding: 6px 2px;"></div>
+
+          <!-- Tag Tree -->
+          <div id="tag-tree" style="max-height: 380px; overflow-y: auto;">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+      </div>
+
+      <!-- App Footer Status Line -->
+      <div class="app-footer">
+        <div id="cursor-readout" class="cursor-readout">
+          <span>Cursor:</span>
+          <span id="cursor-snippet" style="color: var(--text-primary); font-weight: 500;">Click in document to set position</span>
+        </div>
+        <div id="status-toast" class="status-toast">Ready</div>
+      </div>
+    </div>
+
+    <!-- Right Side: Browser Word Simulator (Visible when outside Word Desktop/Web) -->
+    <div id="simulator-panel" class="simulator-panel">
+      <!-- Rendered by mock-word.js -->
+    </div>
+  </div>
+
+  <!-- App Entry Script -->
+</body>
+</html>
